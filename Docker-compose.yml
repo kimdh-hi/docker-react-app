@@ -1,0 +1,21 @@
+version: "3" # docker-compose version
+services: # 멀티 컨테이너로 사용하고자 하는 컨테이너들을 명시
+  react: # 사용하고자 하는 컨테이너의 이름
+    build: # 이미지 빌드시 필요한 정보를 설정
+      context: . # Docker-compose.yml과 Dockerfile의 상대경로
+      dockerfile: Dockerfile.dev # Dockerfile의 파일명이 Dockerfile이 아닌 경우 따로 설정해주어야 함
+    ports: # 포트 매핑정보 설정
+      - "3000:3000"
+    volumes: # 로컬 파일시스템과 컨테이너 파일시스템의 매핑정보 설정
+      - /usr/src/app/node_modules # 컨테이너의 node_modules는 로컬에서 참조하지 않도록 설정
+      - ./:/usr/src/app # 그외 모든 로컬의 파일들을 컨테이너가 참조할 수 있도록 설정
+    stdin_open: true # -i 옵션
+    tty: true # -t 옵션
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /usr/src/app/node_modules
+      - ./:/usr/src/app
+    command: ["npm", "run", "test"]
