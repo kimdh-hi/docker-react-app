@@ -11,10 +11,10 @@ services:
 # Script를 실행하기 전 수행할 작업
 before_install:
   - "echo Creating image..."
-  - "docker build -t e6b2e113bb9c -f Dockerfile.dev ." #
+  - "docker build -t zbeld123/docker-react-app -f Dockerfile.dev ."
 
 scripts:
-  - docker run -e -CI=true e6b2e113bb9c npm run test -- --coverage
+  - docker run -e -CI=true zbeld123/docker-react-app npm run test -- --coverage
 
 # 스크립트 성공 후 수행할 작업
 after_success:
