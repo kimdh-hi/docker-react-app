@@ -1,0 +1,21 @@
+# 스크립트를 관리자 권한으로 실행하기 위한 설정
+sudo: required
+
+# 언어 플랫폼 설정
+language: generic
+
+# Travis CI를 도커 컨테이너 환경에서 실행하기 위한 설정
+services:
+  - docker
+
+# Script를 실행하기 전 수행할 작업
+before_install:
+  - "echo Creating image..."
+  - "docker build -t e6b2e113bb9c -f Dockerfile.dev ." #
+
+scripts:
+  - docker run -e -CI=true e6b2e113bb9c npm run test -- --coverage
+
+# 스크립트 성공 후 수행할 작업
+after_success:
+  - echo "Test Success"
