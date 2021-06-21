@@ -16,6 +16,6 @@ before_install:
 scripts:
   - docker run -e -CI=true zbeld123/docker-react-app npm run test -- --coverage
 
-# 스크립트 성공 후 수행할 작업
+# 스크립트 성공 후 수행할 작업d
 after_success:
   - echo "Test Success"
